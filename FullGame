@@ -1,0 +1,116 @@
+def tictactoe():   
+    board = [1, 2, 3, 
+             4, 5, 6, 
+             7, 8, 9]                                                             # this is the board range                 
+    
+    def boarder():                                                                # defining the boarder function
+        print(board[0], '|', board[1], '|', board[2])                             # printing the board with the numbers and lines inbetween
+        print("----------")
+        print(board[3], '|', board[4], '|', board[5])
+        print("----------")
+        print(board[6], '|', board[7], '|', board[8])
+        print()
+     
+    
+    def player_1():
+        p1choice = int(input("Player 1 make your move! you are crosses: "))       # player1's input as an interval         
+        p1position = p1choice-1                                                   # i added the minus 1 as after adding the boarder the board loaction was 1 bigger then the player input
+        if board[p1position] == 'X' or board[p1position] == 'O':                  # If a X or a O is on the position called
+            print("You can't go there. Try again")                                # the position cant be taken
+            player_1()                                                            # if you choose a wrong position it becomes your turn again
+        else:                                                                     # otherwise the location get set with the element 
+            board[p1position] = "X"                                   
+   
+    
+    def player_2():    
+        p2choice = int(input("Player 2 make your move! You are noughts: "))       # this is the second persons turn using similar code
+        p2position = p2choice-1
+        if board[p2position] == 'X' or board[p2position] == 'O':                  # if there is a cross or a nought you cant coose this location
+             print("You can't go there. Try again")
+             player_2()                                                           # if you choose a wrong position it becomes your turn again
+        else:
+            board[p2position] = "O"                                               # if there is no cross or nought in the position the locatio gets set with the element                       
+        
+    def check_winX():                                                             # this is the code for all the possible winning positions for player 1
+        if board[0] == 'X' and board[1] == 'X' and board[2] == 'X':               # this says if board positions of 0, 1 and 2 all have the same X element there is a winner
+            print("Congratulations player 1!")
+            return True                                                           # this returns the check_winX function to become True, 
+        if board[3] == 'X' and board[4] == 'X' and board[5] == 'X':               # which is then later on used to break the while loop stopping the game
+            print("Congratulations player 1!")
+            return True
+        if board[6] == 'X' and board[7] == 'X' and board[8] == 'X':
+            print("Congratulations player 1!")
+            return True
+        if board[0] == 'X' and board[4] == 'X' and board[8] == 'X':
+            print("Congratulations player 1!")
+            return True
+        if board[6] == 'X' and board[4] == 'X' and board[2] == 'X':
+            print("Congratulations player 1!")
+            return True
+        if board[0] == 'X' and board[3] == 'X' and board[6] == 'X':
+            print("Congratulations player 1!")
+            return True
+        if board[1] == 'X' and board[4] == 'X' and board[7] == 'X':
+            print("Congratulations player 1!")
+            return True
+        if board[2] == 'X' and board[5] == 'X' and board[8] == 'X':
+            print("Congratulations player 1!")
+            return True
+    
+    def check_winO():                                                             # this is all the winning positions of player 2 
+        if board[0] == 'O' and board[1] == 'O' and board[2] == 'O':               # this says if board positions of 0, 1 and 2 all have the same O element there is a winner
+            print("Congratulations player 2!")
+            return True                                                           # this returns the check_winO function to become True,
+        if board[3] == 'O' and board[4] == 'O' and board[5] == 'O':               # which is then later on used to break the while loop stopping the game
+            print("Congratulations player 2!")
+            return True
+        if board[6] == 'O' and board[7] == 'O' and board[8] == 'O':
+            print("Congratulations player 2!")
+            return True
+        if board[0] == 'O' and board[4] == 'O' and board[8] == 'O':
+            print("Congratulations player 2!")
+            return True
+        if board[6] == 'O' and board[4] == 'O' and board[2] == 'O':
+            print("Congratulations player 2!")
+            return True
+        if board[0] == 'O' and board[3] == 'O' and board[6] == 'O':
+            print("Congratulations player 2!")
+            return True
+        if board[1] == 'O' and board[4] == 'O' and board[7] == 'O':
+            print("Congratulations player 2!")
+            return True
+        if board[2] == 'O' and board[5] == 'O' and board[8] == 'O':
+            print("Congratulations player 2!")
+            return True
+            
+    def check_draw():                                                             # this function says if the game is a draw   
+        count = 0                                                                 # this says the count starts at 0
+        for a in range(9):                                                        # has a range of 9
+            if board[a] == "X" or board[a] == "O":                                # increases by 1 when and X or O is used
+                count += 1
+            if count == 9: 
+                print("It's a draw\n")                                            # when the counter reaches its limit the game becomes a draw
+                return True
+    
+    def check_win():                                                              # this function groups all the check for end which means  
+        if (check_winX() == True) or (check_winO() == True) or (check_draw() == True):  # if X wins or O wins or its a draw, then check_win = true, which breaks the loop  
+            return True
+        else:
+            return False
+    
+    while True:                                                                   # I had used a while loop to call these functions until the loop breaks 
+        boarder()                                                                 # calling the boarder function
+        player_1()                                                                # calling player 1's turn
+                                                                          
+        end = check_win()                                                         # call for a check win if someone has won or drawn then the loop breaks
+        if end == True:                                                           # I called check_win = end and if check_win is true the the sript will break
+            boarder()
+            break
+        
+        boarder()                                                                 # if no-one has won the game reprint the board with player 1's move on the board 
+        player_2()                                                                # and then player 2 has their turn
+        end = check_win()                                                         # after player 2 had their turn the game checks for a win again 
+        if end == True:                                                           # if there is an end the script should stop running.
+            boarder()
+            break      
+tictactoe()
